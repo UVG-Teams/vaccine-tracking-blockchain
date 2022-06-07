@@ -38,7 +38,7 @@ export function* watchCreateVaccineBadgeLog() {
 
 function* retrieveVaccineBadgeLogs(action) {
     try {
-        const result = yield action.payload.contract.methods.getVaccineBadgesLogs().send({ from: action.payload.user_address, gas: 50000, gasPrice: 1e6 }, (error, res) => {
+        const result = yield action.payload.contract.methods.getVaccineBatches().send({ from: action.payload.user_address, gas: 50000, gasPrice: 1e6 }, (error, res) => {
             console.log('error', error);
             console.log('res', res);
             // if (res != undefined) {
