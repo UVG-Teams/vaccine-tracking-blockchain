@@ -1,4 +1,5 @@
 import React from "react";
+
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -8,6 +9,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Avatar from '@mui/material/Avatar';
 import MUIDataTable from "mui-datatables";
+
+import Web3 from 'web3/dist/web3.min.js';
+
 import './styles.scss';
 
 
