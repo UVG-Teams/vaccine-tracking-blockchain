@@ -15,15 +15,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
 
-const columns = ["Batch", "Vaccine Type", "Location", "Temperature", "User", "Received at", "Delivered at"];
+const columns = ["Batch", "Vaccine Type", "Location", "Temperature", "User", "Timestamp"];
 
-const data = [
-	["4120Z001", "Moderna", "Aeropuerto", "-20ºC", "Francisco Rosal", "07/05/22 23:11:58", "07/05/22 23:45:50"],
-	["4120Z002", "Pfizer", "Bodega", "-20ºC", "Jose Block", "07/05/22 23:11:58", "07/05/22 23:45:50"],
-	["4120Z003", "J&J", "Centro vacunación Oakland", "-20ºC", "Francisco Rosal", "07/05/22 23:11:58", "07/05/22 23:45:50"],
-	["4120Z001", "Moderna", "Aeropuerto", "-20ºC", "Francisco Rosal", "07/05/22 23:11:58", "07/05/22 23:45:50"],
-	["4120Z002", "Pfizer", "Bodega", "-20ºC", "Jose Block", "07/05/22 23:11:58", "07/05/22 23:45:50"],
-];
 
 const options = {
 	filterType: 'multiselect',
@@ -31,7 +24,7 @@ const options = {
 };
 
 
-const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleCreate }) => {
+const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleCreate, badgesLogs }) => {
 	const [open, setOpen] = useState(false);
     useEffect(retrieveVaccineBadgeLogsStarted, []);
 
@@ -132,7 +125,7 @@ const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleC
 				</div>
 				<MUIDataTable
 					title={ <Button variant="contained" onClick={ handleClickOpen }>Nuevo Registro</Button> }
-					data={ data }
+					data={ badgesLogs }
 					columns={ columns }
 					options={ options }
 					className="table"
@@ -144,7 +137,9 @@ const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleC
   
 
 export default connect(
-	state => ({}),
+	state => ({
+        badgesLogs: state.badges.byId,
+	}),
 	dispatch => ({
 		retrieveVaccineBadgeLogsStarted(user_address, contract) {
 			dispatch(actions.retrieveVaccineBadgeLogsStarted(user_address, contract));
@@ -161,7 +156,6 @@ export default connect(
 			dispatchProps.retrieveVaccineBadgeLogsStarted(ownProps.user_address, ownProps.contract);
 		},
 		handleCreate(badgePayload) {
-			console.log("HOLA", badgePayload)
 			const badgePayload2 = {
 				batch_num: 1,
 				vaccine_type: "Pfizer",

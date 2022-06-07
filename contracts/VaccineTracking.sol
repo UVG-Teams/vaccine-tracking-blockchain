@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.25 <0.9.0;
+pragma solidity >=0.7.0 <0.9.0;
 
 contract VaccineTracking {
 
@@ -34,7 +34,7 @@ contract VaccineTracking {
     }
 
     function getVaccineBatches() public view returns (vaccine_batch_log[] memory) {
-        return(vaccine_batch_logs);
+        return vaccine_batch_logs;
     }
 
 }
