@@ -4,22 +4,22 @@ pragma solidity >=0.4.25 <0.9.0;
 contract VaccineTracking {
 
     struct vaccine_batch_log{
-        int64 batch_num;
+        uint batch_num;
         string vaccine_type;
         string location;
         int temperature;
         address user;
-        int64 timestamp;
+        uint timestamp;
     }
 
     vaccine_batch_log[] public vaccine_batch_logs;
 
     function createVaccineBatch (
-        int64 batch_num, 
-        string memory vaccine_type, 
-        string memory location, 
-        int temperature, 
-        int64 timestamp
+        uint batch_num,
+        string memory vaccine_type,
+        string memory location,
+        int temperature,
+        uint timestamp
     ) public {
 
         vaccine_batch_logs.push(vaccine_batch_log({

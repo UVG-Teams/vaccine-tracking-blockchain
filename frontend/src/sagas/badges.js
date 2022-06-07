@@ -18,11 +18,12 @@ function* createVaccineBadgeLog(action) {
         console.log("HOLA2", action.payload)
         const badgePayload = action.payload.badgePayload;
         const result = yield action.payload.contract.methods.createVaccineBatch(
-            badgePayload.batch_num,
-            badgePayload.vaccine_type,
-            badgePayload.location,
-            badgePayload.temperature,
-            badgePayload.timestamp
+            // badgePayload.batch_num,
+            // badgePayload.vaccine_type,
+            // badgePayload.location,
+            // badgePayload.temperature,
+            // badgePayload.timestamp
+            1, "Vaccine", "Location", 10, 192879387
         ).send({ from: action.payload.user_address, gas: 50000, gasPrice: 1e6 }, (error, res) => {
             console.log('error', error);
             console.log('res', res);
@@ -47,7 +48,7 @@ export function* watchCreateVaccineBadgeLog() {
 function* retrieveVaccineBadgeLogs(action) {
     try {
         // const result = yield action.payload.contract.methods.getVaccineBatches().call()
-        const result = yield action.payload.contract.methods.getVaccineBatches().call({ from: action.payload.user_address, gas: 50000, gasPrice: 1e6 }, (error, res) => {
+        const result = yield action.payload.contract.methods.getVaccineBatches().send({ from: action.payload.user_address, gas: 50000, gasPrice: 1e6 }, (error, res) => {
             console.log('error', error);
             console.log('res', res);
             // if (res != undefined) {
