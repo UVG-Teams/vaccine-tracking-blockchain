@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@400;700&family=Lora:wght@400;500;700&family=Poppins:wght@500;700&family=Raleway&family=Rubik:wght@500&display=swap');
+
+.title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 72px;
+    text-align: center;
+    margin: 2% 2% 1% 2%;
+}
+
+.tableContainer {
+    width: 90%;
+    position: relative; 
+    left: 50%;
+    transform: translateX(-50%);
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5%;
+}
+
+.avatar{
+    margin-right: 1%;
+}

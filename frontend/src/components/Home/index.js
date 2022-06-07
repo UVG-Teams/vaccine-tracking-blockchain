@@ -6,8 +6,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Avatar from '@mui/material/Avatar';
 import MUIDataTable from "mui-datatables";
-import './styles.css';
+import './styles.scss';
 
 
 
@@ -61,6 +62,9 @@ const Home = () => {
 	return(
 		<> 
 			<div>
+				<h1 className="title">Vaccine Tracking</h1>
+			</div>
+			<div className="">
 				<Dialog open={open} onClose={handleClose}>
 					<DialogTitle>Nuevo registro</DialogTitle>
 					<DialogContent>
@@ -137,13 +141,19 @@ const Home = () => {
 				</Dialog>
 			</div>
 
-			<MUIDataTable
-				title={<Button variant="contained" onClick={handleClickOpen}>Nuevo Registro</Button>}
-				data={data}
-				columns={columns}
-				options={options}
-				className="table"
-			/>
+			<div className="tableContainer">
+				<div className="user">
+					<Avatar src="/broken-image.jpg" className="avatar"/>
+					<span>0xF83SNF39FJSC992884192301492348821384FNN2519349934141</span>
+				</div>
+				<MUIDataTable
+					title={<Button variant="contained" onClick={handleClickOpen}>Nuevo Registro</Button>}
+					data={data}
+					columns={columns}
+					options={options}
+					className="table"
+				/>
+			</div>
 		</>
 	)
 }
