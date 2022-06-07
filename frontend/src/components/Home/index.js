@@ -31,7 +31,7 @@ const options = {
 };
 
 
-const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted }) => {
+const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleCreate }) => {
 	const [open, setOpen] = useState(false);
     useEffect(retrieveVaccineBadgeLogsStarted, []);
 
@@ -49,7 +49,7 @@ const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted }) => {
 				<h1 className="title">Vaccine Tracking</h1>
 			</div>
 			<div className="">
-				<Dialog open={open} onClose={handleClose}>
+				<Dialog open={ open } onClose={ handleClose }>
 					<DialogTitle>Nuevo registro</DialogTitle>
 					<DialogContent>
 						<DialogContentText>
@@ -120,7 +120,7 @@ const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted }) => {
 					</DialogContent>
 					<DialogActions>
 						<Button onClick={ handleClose }>Cancelar</Button>
-						<Button onClick={ handleClose }>Guardar</Button>
+						<Button onClick={ handleCreate }>Guardar</Button>
 					</DialogActions>
 				</Dialog>
 			</div>
@@ -148,6 +148,9 @@ export default connect(
 	dispatch => ({
 		retrieveVaccineBadgeLogsStarted(user_address, contract) {
 			dispatch(actions.retrieveVaccineBadgeLogsStarted(user_address, contract));
+		},
+		handleCreate(user_address, contract, badgePayload) {
+			dispatch(actions.createVaccineBadgeLogStarted(user_address, contract, badgePayload));
 		}
 	}),
     (stateProps, dispatchProps, ownProps) => ({
@@ -156,6 +159,10 @@ export default connect(
 		...dispatchProps,
 		retrieveVaccineBadgeLogsStarted() {
 			dispatchProps.retrieveVaccineBadgeLogsStarted(ownProps.user_address, ownProps.contract);
+		},
+		handleCreate(badgePayload) {
+			console.log("HOLA", badgePayload)
+			// dispatchProps.handleCreate(ownProps.user_address, ownProps.contract, badgePayload);
 		}
 	})
 )(Home);

@@ -1,9 +1,13 @@
 import * as types from '../types/badges';
 
 
-export const createVaccineBadgeLogStarted = payload => ({
+export const createVaccineBadgeLogStarted = (user_address, contract, badgePayload) => ({
     type: types.CREATE_VACCINE_BATCH_LOG_STARTED,
-    payload: payload,
+    payload: {
+        user_address,
+        contract,
+        badgePayload,
+    },
 });
 
 export const createVaccineBadgeLogCompleted = () => ({
