@@ -17,14 +17,14 @@ if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
   web3.eth.getAccounts().then(console.log);
   window.ethereum.request({ method: 'eth_requestAccounts' })
 
-  // computer = new web3.eth.Contract(computer_abi);
-  // computer.options.address = '0xE8b848f0220Ee779172E765675B330f7FcC136Dc'; // Address of the contract
+  badgesContract = new web3.eth.Contract(badgesContractAbi);
+  badgesContract.options.address = '0xe2E296C81084B810c70Fb45F9735bC8af3cDfE4f'; // Address of the contract
 }
 
 function App() {
   return (
     <Provider store={store}>
-      <Home />
+      <Home user_address={window.ethereum.selectedAddress} contract={badgesContract}/>
     </Provider>
   );
 }

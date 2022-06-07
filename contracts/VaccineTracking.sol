@@ -23,7 +23,7 @@ contract VaccineTracking {
         int temperature, 
         int64 received_at, 
         int64 delivered_at
-        ) public {
+    ) public {
 
         vaccine_batch storage new_vaccine_batch = vaccine_batch_logs[batch_index.length + 1];
         new_vaccine_batch.batch_num = batch_num;
@@ -35,6 +35,19 @@ contract VaccineTracking {
         new_vaccine_batch.delivered_at = delivered_at;
         batch_index.push(batch_index.length + 1);
 
+    }
+
+    function getVaccineBatches() public view returns (
+        int64,
+        string memory,
+        string memory,
+        int,
+        address,
+        int64,
+        int64
+    ){
+        // vaccine_batch storage batch = vaccine_batch_logs;
+        // return vaccine_batch_logs;
     }
 
     function getVaccineBatch(uint index) public view returns (

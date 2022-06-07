@@ -15,7 +15,7 @@ import * as types from '../types/badges';
 
 function* createVaccineBadgeLog(action) {
     try {
-        // const result = yield action.payload.contract.methods.use_computer(action.payload.id).send({ from: action.payload.account, gas: 50000, gasPrice: 1e6 }, (error, res) => {
+        // const result = yield action.payload.contract.methods.use_computer(action.payload.id).send({ from: action.payload.user_address, gas: 50000, gasPrice: 1e6 }, (error, res) => {
         //     console.log('error', error);
         //     console.log('res', res);
         //     if (res != undefined) {
@@ -38,15 +38,14 @@ export function* watchCreateVaccineBadgeLog() {
 
 function* retrieveVaccineBadgeLogs(action) {
     try {
-        // const result = yield action.payload.contract.methods.use_computer(action.payload.id).send({ from: action.payload.account, gas: 50000, gasPrice: 1e6 }, (error, res) => {
-        //     console.log('error', error);
-        //     console.log('res', res);
-        //     if (res != undefined) {
-        //         return put(actions.retrieveComputerIsAvailableStarted(action.payload.contract, action.payload.id));
-        //     }
-        // });
-        // console.log('result', result);
-        console.log('result');
+        const result = yield action.payload.contract.methods.getVaccineBadgesLogs().send({ from: action.payload.user_address, gas: 50000, gasPrice: 1e6 }, (error, res) => {
+            console.log('error', error);
+            console.log('res', res);
+            // if (res != undefined) {
+                // return put(actions.retrieveVaccineBadgeLogsCompleted(action.payload.contract, action.payload.id));
+            // }
+        });
+        console.log('result', result);
     } catch (e) {
         console.log('error', e);
     }
