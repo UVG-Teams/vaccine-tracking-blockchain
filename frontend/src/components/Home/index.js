@@ -162,7 +162,14 @@ export default connect(
 		},
 		handleCreate(badgePayload) {
 			console.log("HOLA", badgePayload)
-			// dispatchProps.handleCreate(ownProps.user_address, ownProps.contract, badgePayload);
+			const badgePayload2 = {
+				batch_num: 1,
+				vaccine_type: "Pfizer",
+				location: "Fabrica",
+				temperature: 20,
+				timestamp: 5467899878,
+			}
+			dispatchProps.handleCreate(ownProps.user_address, ownProps.contract, badgePayload2);
 		}
 	})
 )(Home);
