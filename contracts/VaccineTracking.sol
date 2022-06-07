@@ -9,7 +9,7 @@ contract VaccineTracking {
         string location;
         int temperature;
         address user;
-        uint timestamp;
+        string timestamp;
     }
 
     vaccine_batch_log[] public vaccine_batch_logs;
@@ -19,7 +19,7 @@ contract VaccineTracking {
         string memory vaccine_type,
         string memory location,
         int temperature,
-        uint timestamp
+        string memory timestamp
     ) public {
 
         vaccine_batch_logs.push(vaccine_batch_log({
