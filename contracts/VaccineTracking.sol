@@ -13,7 +13,8 @@ contract VaccineTracking {
         int64 delivered_at;
     }
 
-    mapping(int64 => vaccine_batch) vaccine_batch_logs;
+    mapping(uint => vaccine_batch) vaccine_batch_logs;
+    uint[] public batch_index;
 
     function createVaccineBatch (
         int64 batch_num, 
@@ -24,7 +25,7 @@ contract VaccineTracking {
         int64 delivered_at
         ) public {
 
-        vaccine_batch storage new_vaccine_batch = vaccine_batch_logs[batch_num];
+        vaccine_batch storage new_vaccine_batch = vaccine_batch_logs[batch_index.length + 1];
         new_vaccine_batch.batch_num = batch_num;
         new_vaccine_batch.vaccine_type = vaccine_type;
         new_vaccine_batch.location = location;
@@ -32,10 +33,11 @@ contract VaccineTracking {
         new_vaccine_batch.user = msg.sender;
         new_vaccine_batch.received_at = received_at;
         new_vaccine_batch.delivered_at = delivered_at;
+        batch_index.push(batch_index.length + 1);
 
     }
 
-    function getVaccineBatch(int64 batchNum) public view returns (
+    function getVaccineBatch(uint index) public view returns (
         int64,
         string memory,
         string memory,
@@ -44,7 +46,7 @@ contract VaccineTracking {
         int64,
         int64
     ){
-        vaccine_batch storage batch = vaccine_batch_logs[batchNum];
+        vaccine_batch storage batch = vaccine_batch_logs[index];
         return(
             batch.batch_num,
             batch.vaccine_type,
@@ -56,8 +58,27 @@ contract VaccineTracking {
         );
     }
 
-    // function getVaccineBatchLogs (batch_num) public {
-
-    // }
+    function getLastVaccineBatch() public view returns(
+        uint,
+        int64,
+        string memory,
+        string memory,
+        int,
+        address,
+        int64,
+        int64
+    ){
+        vaccine_batch storage batch = vaccine_batch_logs[batch_index.length];
+        return(
+            batch_index.length,
+            batch.batch_num,
+            batch.vaccine_type,
+            batch.location,
+            batch.temperature,
+            batch.user,
+            batch.received_at,
+            batch.delivered_at
+        );
+    }
 
 }
