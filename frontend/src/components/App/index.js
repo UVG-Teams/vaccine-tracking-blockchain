@@ -18,7 +18,7 @@ if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
   window.ethereum.request({ method: 'eth_requestAccounts' })
 
   badgesContract = new web3.eth.Contract(badgesContractAbi);
-  badgesContract.options.address = '0x5eb8f6E7c0511E690A8f2Ee46703a19A7d896D09'; // Address of the contract
+  badgesContract.options.address = '0xfd4db3Cc34be465A410Af9a136394460a68915CF'; // Address of the contract
 }
 
 function App() {

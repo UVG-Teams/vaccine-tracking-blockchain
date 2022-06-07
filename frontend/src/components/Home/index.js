@@ -6,10 +6,10 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Avatar from '@mui/material/Avatar';
 import MUIDataTable from "mui-datatables";
-import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import * as actions from '../../actions/badges';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useEffect, useState, useRef } from 'react';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -23,10 +23,15 @@ const options = {
 	selectableRows: false,
 };
 
-
 const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleCreate, badgesLogs }) => {
 	const [open, setOpen] = useState(false);
     useEffect(retrieveVaccineBadgeLogsStarted, []);
+
+	const [batchNum, setBatchNum] = useState(0);
+	const [vaccineType, setVaccineType] = useState('');
+	const [location, setLocation] = useState('');
+	const [temperature, setTemperature] = useState(0);
+	const [timestamp, setTimestamp] = useState('');
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -56,6 +61,7 @@ const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleC
 							type="text"
 							fullWidth
 							variant="standard"
+							onChange={ (e) => { setBatchNum(e.target.value) } }
 						/>
 						<TextField
 							margin="dense"
@@ -64,6 +70,7 @@ const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleC
 							type="text"
 							fullWidth
 							variant="standard"
+							onChange={ (e) => { setVaccineType(e.target.value) } }
 						/>
 						<TextField
 							margin="dense"
@@ -72,6 +79,7 @@ const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleC
 							type="text"
 							fullWidth
 							variant="standard"
+							onChange={ (e) => { setLocation(e.target.value) } }
 						/>
 						<TextField
 							margin="dense"
@@ -80,14 +88,7 @@ const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleC
 							type="text"
 							fullWidth
 							variant="standard"
-						/>
-						<TextField
-							margin="dense"
-							id="name"
-							label="User"
-							type="text"
-							fullWidth
-							variant="standard"
+							onChange={ (e) => { setTemperature(e.target.value) } }
 						/>
 						{/* <TextField
 							margin="dense"
@@ -104,16 +105,20 @@ const Home = ({ user_address, contract, retrieveVaccineBadgeLogsStarted, handleC
 							id="datetime-local"
 							label="Received at"
 							type="datetime-local"
-							defaultValue="2017-05-24T10:30"
+							defaultValue="2022-06-07T05:30"
 							// sx={{ width: 250 }}
 							InputLabelProps={{
 								shrink: true,
 							}}
+							onChange={ (e) => { setTimestamp(e.target.value) } }
 						/>
 					</DialogContent>
 					<DialogActions>
 						<Button onClick={ handleClose }>Cancelar</Button>
-						<Button onClick={ handleCreate }>Guardar</Button>
+						<Button onClick={() => {
+							setOpen(false);
+							handleCreate(batchNum, vaccineType, location, temperature, timestamp)
+						}}>Guardar</Button>
 					</DialogActions>
 				</Dialog>
 			</div>
@@ -155,15 +160,15 @@ export default connect(
 		retrieveVaccineBadgeLogsStarted() {
 			dispatchProps.retrieveVaccineBadgeLogsStarted(ownProps.user_address, ownProps.contract);
 		},
-		handleCreate(badgePayload) {
-			const badgePayload2 = {
-				batch_num: 1,
-				vaccine_type: "Pfizer",
-				location: "Fabrica",
-				temperature: 20,
-				timestamp: 5467899878,
+		handleCreate(batchNum, vaccineType, location, temperature, timestamp) {
+			const badgePayload = {
+				batch_num: batchNum,
+				vaccine_type: vaccineType,
+				location: location,
+				temperature: temperature,
+				timestamp: timestamp,
 			}
-			dispatchProps.handleCreate(ownProps.user_address, ownProps.contract, badgePayload2);
+			dispatchProps.handleCreate(ownProps.user_address, ownProps.contract, badgePayload);
 		}
 	})
 )(Home);
